@@ -1,0 +1,58 @@
+plugins {
+  id 'war'
+  id 'java'
+  id 'eclipse'
+  id 'eclipse-wtp'
+  
+}
+
+repositories {
+  mavenCentral()
+}
+
+version = '1.0'
+
+eclipse {
+  wtp {
+    facet {
+      facet name: 'jst.web', version: '6.0'
+      facet name: 'jst.java', version: JavaVersion.VERSION_21
+    }
+  }
+}
+eclipseJdt {
+    File f = file('.settings/org.eclipse.core.resources.prefs')
+    f.write('eclipse.preferences.version=1\n')
+    f.append('encoding/<project>=UTF-8')
+}
+
+
+
+dependencies {    
+	providedRuntime "jakarta.el:jakarta.el-api:5.0.1"
+    providedRuntime "jakarta.servlet:jakarta.servlet-api:6.0.0"
+    providedRuntime "jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.0"
+    implementation  "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0"
+    implementation  "org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"
+
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+
+
+war {
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+}
+
+
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+tasks.withType(Test) {
+	systemProperty "file.encoding", "UTF-8"
+}
