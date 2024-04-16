@@ -1,33 +1,12 @@
 plugins {
   id 'war'
-  id 'java'
-  id 'eclipse'
-  id 'eclipse-wtp'
-  
-}
+  id 'java'}
 
 repositories {
   mavenCentral()
 }
 
 version = '1.0'
-
-eclipse {
-  wtp {
-    facet {
-      facet name: 'jst.web', version: '6.0'
-      facet name: 'jst.java', version: JavaVersion.VERSION_21
-      facet name: 'jst.jsf', version: '2.3'
-    }
-  }
-}
-eclipseJdt {
-    File f = file('.settings/org.eclipse.core.resources.prefs')
-    f.write('eclipse.preferences.version=1\n')
-    f.append('encoding/<project>=UTF-8')
-}
-
-
 
 dependencies {    
 	providedCompile "jakarta.el:jakarta.el-api:5.0.1"
