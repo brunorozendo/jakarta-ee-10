@@ -1,0 +1,47 @@
+plugins {
+  id 'war'
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+version = '1.0'
+
+dependencies {
+    //Provided by Tomcat 10
+	providedCompile "jakarta.el:jakarta.el-api:5.0.1"
+    providedCompile "jakarta.servlet:jakarta.servlet-api:6.0.0"
+    providedCompile "jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.0"
+
+    //Servlet+JSP+JSTL
+    implementation  "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0"
+    implementation  "org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"
+
+    //CDI: weld
+    implementation 'org.jboss.weld.servlet:weld-servlet-core:5.1.2.Final'
+
+    //Rest: resteasy
+    implementation 'org.jboss.resteasy:resteasy-servlet-initializer:6.2.8.Final'
+    implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
+    implementation 'org.jboss.resteasy:resteasy-jaxb-provider:6.2.8.Final'
+    implementation 'org.jboss.resteasy:resteasy-cdi:6.2.8.Final'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+war {
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+}
+
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+tasks.withType(Test) {
+	systemProperty "file.encoding", "UTF-8"
+}
